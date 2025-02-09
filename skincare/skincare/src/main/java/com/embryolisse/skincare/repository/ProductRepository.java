@@ -2,12 +2,26 @@ package com.embryolisse.skincare.repository;
 
 import com.embryolisse.skincare.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    // Custom query to find products by skin type ID
-    @Query("SELECT p FROM Product p JOIN p.skinTypes st WHERE st.id = ?1")
-    List<Product> findProductsBySkinTypeId(Long skinTypeId);
+
+    // Find products by skin type
+    List<Product> findBySkinTypes_NameIgnoreCase(String skinTypeName);
+
+    // Find products by concern
+    List<Product> findByConcerns_NameIgnoreCase(String concernName);
+
+    // Find products by breakout frequency
+    List<Product> findByBreakouts_NameIgnoreCase(String breakoutName);
+
+    // Find products by the target area
+    List<Product> findByTargetAreas_NameIgnoreCase(String targetAreaName);
+
+    // Find products for winter
+    List<Product> findByForWinter(Boolean forWinter);
+
+    // Find products for sun
+    List<Product> findByForSun(Boolean forSun);
 }

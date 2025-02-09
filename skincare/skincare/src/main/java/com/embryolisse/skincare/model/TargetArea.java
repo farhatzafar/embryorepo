@@ -3,17 +3,15 @@ package com.embryolisse.skincare.model;
 import jakarta.persistence.*;
 
 import java.util.List;
-
 @Entity
-@Table(name="skin_types")
-public class SkinType {
-
+@Table(name="target_areas")
+public class TargetArea {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "skinTypes")
+    @ManyToMany(mappedBy = "targetAreas")
     private List<Product> products;
 
     public Long getId() {

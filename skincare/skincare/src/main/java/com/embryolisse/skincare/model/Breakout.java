@@ -5,15 +5,15 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="skin_types")
-public class SkinType {
+@Table(name="breakouts")
+public class Breakout {
 
     @Id
     @GeneratedValue
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "skinTypes")
+    @ManyToMany(mappedBy = "breakouts")
     private List<Product> products;
 
     public Long getId() {
@@ -40,3 +40,4 @@ public class SkinType {
         this.products = products;
     }
 }
+

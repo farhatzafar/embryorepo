@@ -2,35 +2,52 @@ package com.embryolisse.skincare.service;
 
 import com.embryolisse.skincare.model.Product;
 import com.embryolisse.skincare.repository.ProductRepository;
-import com.embryolisse.skincare.repository.SkinTypeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository repository;
 
-    @Autowired
-    private SkinTypeRepository skinTypeRepository;
+    private final static String PRODUCT_NOT_FOUND="Product not found";
 
-    // Method to get products based on skin type name (e.g., "Oily", "Dry")
-    public List<Product> getProductsBySkinType(String skinTypeName) {
-        // Find the skin type by name
-        var skinType = skinTypeRepository.findByName(skinTypeName);
+    public ProductService(ProductRepository repository) {this.repository = repository; }
 
-        if (skinType == null) {
-            throw new RuntimeException("Skin type not found");
-        }
+    public List<Product> findAllProducts() {return repository.findAll(); }
 
-        // Return the products that are linked to this skin type
-        return productRepository.findProductsBySkinTypeId(skinType.getId());
-
+    public Optional<Product> findProductByProductId(Long productId) {
+        return repository.findById(productId);
     }
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    // Method to get products filtered by their skin type
+    public List<Product> getProductsBySkinType(String skinTypeName) {
+        return repository.findBySkinTypes_NameIgnoreCase(skinTypeName);
+    }
+
+    // Method to get products filtered by their skin type
+    public List<Product> getProductsByConcern(String concernName) {
+        return repository.findByConcerns_NameIgnoreCase(concernName);
+    }
+
+    // Method to get products filtered by whether they are for winter
+    public List<Product> getProductsByForWinter(Boolean forWinter) {
+        return repository.findByForWinter(forWinter);
+    }
+
+    // Method to get products filtered by breakout frequency
+    public List<Product> getProductsByBreakout(String breakoutName) {
+        return repository.findByBreakouts_NameIgnoreCase(breakoutName);
+    }
+
+    // Method to get products filtered by breakout frequency
+    public List<Product> getProductsByTargetArea(String targetAreaName) {
+        return repository.findByTargetAreas_NameIgnoreCase(targetAreaName);
+    }
+
+    // Method to get products filtered by whether they are for sun damage
+    public List<Product> getProductsByForSun(Boolean forSun) {
+        return repository.findByForSun(forSun);
     }
 }
