@@ -1,14 +1,17 @@
-// src/App.tsx
 import React from 'react';
-import SkinTypeSelector from './components/SkinTypeSelector';
+import './App.css';  // Import your CSS if needed
+import FilterForm from './components/FilterForm';  // Import the FilterForm component
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <h1>Welcome to Skincare Product Finder</h1>
-      <SkinTypeSelector />
+      <h1>Welcome to Our Product Finder</h1>
+      
+      {/* Render the FilterForm component */}
+      <FilterForm />
+      
     </div>
   );
-}
+};
 
 export default App;

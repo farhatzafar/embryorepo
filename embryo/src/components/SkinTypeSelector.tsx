@@ -23,15 +23,16 @@ const SkinTypeSelector: React.FC = () => {
   // Function to fetch products based on selected skin type
   const fetchProducts = async (): Promise<void> => {
     if (!selectedSkinType) return;
-
+  
+    console.log('Selected Skin Type:', selectedSkinType); // Add this line to log the value
+  
     setLoading(true);
     setError(null);
-
+  
     try {
-      // Replace the URL with your Spring Boot API URL
       const response = await axios.get<Product[]>(
-        `http://localhost:8080/api/products/skin-type?skinType=${selectedSkinType}`
-      );
+        `http://localhost:8080/api/products/skintype?skinTypeName=${selectedSkinType}`
+      );      
       setProducts(response.data);
     } catch (err) {
       setError('Failed to fetch products');
@@ -39,6 +40,7 @@ const SkinTypeSelector: React.FC = () => {
       setLoading(false);
     }
   };
+  
 
   // Handle form submission to fetch products
   const handleSubmit = (event: React.FormEvent): void => {

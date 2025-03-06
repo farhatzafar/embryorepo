@@ -96,4 +96,23 @@ public class ProductController {
                 .map(ProductResponse::toResponse)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/filter")
+    public List<ProductResponse> getFilteredProducts(
+            @RequestParam(required = false) String skinType,
+            @RequestParam(required = false) String concern,
+            @RequestParam(required = false) String breakout,
+            @RequestParam(required = false) String targetArea,
+            @RequestParam(required = false) Boolean forWinter,
+            @RequestParam(required = false) Boolean forSun) {
+
+        List<Product> products = service.getFilteredProducts(skinType, concern, breakout, targetArea, forWinter, forSun);
+
+        return products.stream()
+                .map(ProductResponse::toResponse)
+                .collect(Collectors.toList());
+
+    }
+
+
 }
